@@ -241,6 +241,15 @@ namespace DiceGameProject
                 fighters[dayNumber * 4 - 2].accuracy = d4.Roll() * 5;
                 fighters[dayNumber * 4 - 2].speed = d8.Roll() * 3;
                 fighters[dayNumber * 4 - 2].goldAmount = d20.Roll() * 5 + d10.Roll() * 10;
+            } else if (70 < dayNumber)
+            {
+                fighters.Add(new Dragon());
+                fighters.Add(new Dragon());
+                fighters[dayNumber * 4 - 2].health = d8.Roll() * 5;
+                fighters[dayNumber * 4 - 2].damage = d20.Roll() + d4.Roll() + d6.Roll() + d8.Roll() + d10.Roll() + d12.Roll();
+                fighters[dayNumber * 4 - 2].accuracy = 16 + d4.Roll();
+                fighters[dayNumber * 4 - 2].speed = 30;
+                fighters[dayNumber * 4 - 2].goldAmount = d20.Roll() * 20;
             }
 
             Console.WriteLine("Two {0}s appeared.", fighters[dayNumber * 4 - 1].name);
@@ -252,7 +261,7 @@ namespace DiceGameProject
         public void InitializeBattle()
         {
             SpawnMonsters();
-            Console.ReadLine();
+            Console.ReadKey();
             Console.Clear();
             fighters[dayNumber * 4 - 1].DisplayStats();
             fighters[dayNumber * 4 - 2].DisplayStats();
@@ -292,14 +301,14 @@ namespace DiceGameProject
             {
                 fighters[dayNumber * 4 - 1].DisplayStats();
             }
-            Console.ReadLine();
+            Console.ReadKey();
             Console.Clear();
             if (player1.health < 1 || player2.health < 1)
             {
                 Console.WriteLine("One or more player has died.  Game Over.");
                 Console.WriteLine("");
                 alive = false;
-                Console.ReadLine();
+                Console.ReadKey();
             } else if (fighters[dayNumber * 4 -1].health < 1 && fighters[dayNumber * 4 - 2].health < 1)
             {
                 fighters[dayNumber * 4 - 1].GiveLoot(player1);
@@ -311,7 +320,7 @@ namespace DiceGameProject
                 Console.WriteLine("{0} has {1} gold.", player1.name, player1.goldAmount);
                 Console.WriteLine("{0} has {1} gold.", player2.name, player2.goldAmount);
 
-                Console.ReadLine();
+                Console.ReadKey();
             } else
             {
                 Battle();
@@ -325,7 +334,7 @@ namespace DiceGameProject
         {
             Console.Clear();
             Console.WriteLine("Congratulations you cleared day number {0}.  Now you get to go to the village to shop, train, or rest, if you have the coin.", dayNumber);
-            Console.ReadLine();
+            Console.ReadKey();
         }
 
     }

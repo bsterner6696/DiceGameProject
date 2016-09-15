@@ -73,10 +73,10 @@ namespace DiceGameProject
             switch (shopRequest.ToLower())
             {
                 case "dagger":
-                    if (goldAmount >= 20)
+                    if (goldAmount >= 40)
                     {
                         shop.weapon.EquipDagger();
-                        goldAmount -= 20;
+                        goldAmount -= 40;
                     }
                     else
                     {
@@ -87,10 +87,10 @@ namespace DiceGameProject
 
                     break;
                 case "sword":
-                    if (goldAmount >= 50)
+                    if (goldAmount >= 100)
                     {
                         shop.weapon.EquipSword();
-                        goldAmount -= 50;
+                        goldAmount -= 100;
                     }
                     else
                     {
@@ -101,10 +101,10 @@ namespace DiceGameProject
                     break;
                 case "battleaxe":
                 case "battle axe":
-                    if (goldAmount >= 100)
+                    if (goldAmount >= 200)
                     {
                         shop.weapon.EquipBattleAxe();
-                        goldAmount -= 100;
+                        goldAmount -= 200;
                     }
                     else
                     {
@@ -115,10 +115,10 @@ namespace DiceGameProject
                     break;
                 case "greatsword":
                 case "great sword":
-                    if (goldAmount >= 200)
+                    if (goldAmount >= 400)
                     {
                         shop.weapon.EquipGreatSword();
-                        goldAmount -= 200;
+                        goldAmount -= 400;
                     }
                     else
                     {
@@ -129,10 +129,10 @@ namespace DiceGameProject
                     break;
                 case "giantslayer":
                 case "giant slayer":
-                    if (goldAmount >= 400)
+                    if (goldAmount >= 1000)
                     {
                         shop.weapon.EquipGiantSlayer();
-                        goldAmount -= 400;
+                        goldAmount -= 1000;
                     }
                     else
                     {
@@ -143,10 +143,10 @@ namespace DiceGameProject
                 case "secret weapon":
                 case "secretweapon":
                 case "secret":
-                    if (goldAmount >= 2000)
+                    if (goldAmount >= 5000)
                     {
                         shop.weapon.EquipGun();
-                        goldAmount -= 2000;
+                        goldAmount -= 5000;
                     }
                     else
                     {
@@ -162,7 +162,10 @@ namespace DiceGameProject
                     if (goldAmount >= 10)
                     {
                         health = maxHealth;
+                        goldAmount -= 10;
                         Console.WriteLine("{0} rested and is back to full health of {1}", name, maxHealth);
+                        DisplayGold();
+                        shop.DisplayShopOptions();
                         Shop();
                     } else
                     {

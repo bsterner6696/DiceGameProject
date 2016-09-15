@@ -15,12 +15,12 @@ namespace DiceGameProject
             Console.WriteLine("");
             Console.WriteLine("For Sale");
             Console.WriteLine("");
-            Console.WriteLine("Dagger: 20g");
-            Console.WriteLine("Sword: 50g");
-            Console.WriteLine("BattleAxe: 100g");
-            Console.WriteLine("GreatSword: 200g");
-            Console.WriteLine("GiantSlayer: 400g");
-            Console.WriteLine("Secret Weapon: 2000g");
+            Console.WriteLine("Dagger: 40g");
+            Console.WriteLine("Sword: 100g");
+            Console.WriteLine("BattleAxe: 200g");
+            Console.WriteLine("GreatSword: 400g");
+            Console.WriteLine("GiantSlayer: 1000g");
+            Console.WriteLine("Secret Weapon: 5000g");
             Console.WriteLine(" ");
             Console.WriteLine("Night at inn: 10 g");
             Console.WriteLine(" ");
