@@ -16,10 +16,12 @@ namespace DiceGameProject
             {
                 target = 1;
                 Console.WriteLine("{0} will attack the second monster.", name);
+                Console.WriteLine("");
             } else
             {
                 target = 2;
                 Console.WriteLine("{0} will attack the first monster.", name);
+                Console.WriteLine("");
             }
         }
             

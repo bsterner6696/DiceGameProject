@@ -51,7 +51,7 @@ namespace DiceGameProject
             player1.GetPlayerName();
             if (numberOfPlayers == 1)
             {
-                player2.name = "Squanchy";
+                player2.name = "Frank";
             } else
             {
                 player2.name = "Player2";
@@ -63,20 +63,9 @@ namespace DiceGameProject
         {
             GetNumberOfPlayers();
             AssignNames();
-            InitializeBattle();
-            if (alive)
-            {
-                Celebrate();
-                Console.WriteLine("{0}, welcome to the village.  After you and your partner make your choices here the next day will begin.", player1.name);
-                player1.shop.DisplayShopOptions();
-                player1.Shop();
-                Console.WriteLine("{0}, welcome to the village. After you make your choice the next day will begin.",player2.name);
-                player1.shop.DisplayShopOptions();
-                player2.Shop();
-                AdvanceDay();
-            }
-
-            
+            Console.Clear();
+            GoThroughDay();
+  
         }
         public void GoThroughDay()
         {
@@ -85,9 +74,15 @@ namespace DiceGameProject
             {
                 Celebrate();
                 Console.WriteLine("{0}, welcome to the village.  After you and your partner make your choices here the next day will begin.", player1.name);
+                Console.WriteLine("");
+                player1.DisplayStats();
+                player1.DisplayGold();
                 player1.shop.DisplayShopOptions();
                 player1.Shop();
                 Console.WriteLine("{0}, welcome to the village. After you make your choice the next day will begin.", player2.name);
+                Console.WriteLine();
+                player2.DisplayStats();
+                player2.DisplayGold();
                 player1.shop.DisplayShopOptions();
                 player2.Shop();
                 AdvanceDay();
@@ -196,25 +191,78 @@ namespace DiceGameProject
             {
                 fighters.Add(new Goblin());
                 fighters.Add(new Goblin());
+                fighters[dayNumber * 4 - 2].health = d6.Roll() + 1;
+                fighters[dayNumber * 4 - 2].damage = d6.Roll();
+                fighters[dayNumber * 4 - 2].accuracy = 8 + d8.Roll();
+                fighters[dayNumber * 4 - 2].speed = 8 + d4.Roll();
+                fighters[dayNumber * 4 - 2].goldAmount = 3 * d8.Roll();
+            } else if ( 20 < dayNumber && dayNumber < 31)
+            {
+                fighters.Add(new DireWolf());
+                fighters.Add(new DireWolf());
+                fighters[dayNumber * 4 - 2].health = d8.Roll() + 5;
+                fighters[dayNumber * 4 - 2].damage = d6.Roll() + 4;
+                fighters[dayNumber * 4 - 2].accuracy = 12 + d4.Roll();
+                fighters[dayNumber * 4 - 2].speed = 9;
+                fighters[dayNumber * 4 - 2].goldAmount = d20.Roll() + d12.Roll() + d8.Roll();
+            } else if (30 < dayNumber && dayNumber < 41)
+            {
+                fighters.Add(new Ogre());
+                fighters.Add(new Ogre());
+                fighters[dayNumber * 4 - 2].health = d8.Roll() + 10;
+                fighters[dayNumber * 4 - 2].damage = d12.Roll() + 4;
+                fighters[dayNumber * 4 - 2].accuracy = 13;
+                fighters[dayNumber * 4 - 2].speed = 5;
+                fighters[dayNumber * 4 - 2].goldAmount = d20.Roll() * 3;
+            } else if (40 < dayNumber && dayNumber < 51)
+            {
+                fighters.Add(new RockTroll());
+                fighters.Add(new RockTroll());
+                fighters[dayNumber * 4 - 2].health = 20;
+                fighters[dayNumber * 4 - 2].damage = d12.Roll() * 2;
+                fighters[dayNumber * 4 - 2].accuracy = 12 + d4.Roll();
+                fighters[dayNumber * 4 - 2].speed = 6;
+                fighters[dayNumber * 4 - 2].goldAmount = 30 + d20.Roll();
+            } else if ( 50 < dayNumber && dayNumber < 61)
+            {
+                fighters.Add(new Daemon());
+                fighters.Add(new Daemon());
+                fighters[dayNumber * 4 - 2].health = d20.Roll();
+                fighters[dayNumber * 4 - 2].damage = d8.Roll() * 3;
+                fighters[dayNumber * 4 - 2].accuracy = d20.Roll();
+                fighters[dayNumber * 4 - 2].speed = d20.Roll();
+                fighters[dayNumber * 4 - 2].goldAmount = d20.Roll() * 5;
+            } else if (60 < dayNumber && dayNumber < 71)
+            {
+                fighters.Add(new AvatarOfTheDamned());
+                fighters.Add(new AvatarOfTheDamned());
+                fighters[dayNumber * 4 - 2].health = d4.Roll() * 5;
+                fighters[dayNumber * 4 - 2].damage = d4.Roll() + d6.Roll() + d8.Roll() + d10.Roll() + d12.Roll();
+                fighters[dayNumber * 4 - 2].accuracy = d4.Roll() * 5;
+                fighters[dayNumber * 4 - 2].speed = d8.Roll() * 3;
+                fighters[dayNumber * 4 - 2].goldAmount = d20.Roll() * 5 + d10.Roll() * 10;
             }
+
             Console.WriteLine("Two {0}s appeared.", fighters[dayNumber * 4 - 1].name);
+            Console.WriteLine("");
+            Console.WriteLine(fighters[dayNumber * 4 - 1].description);
+            Console.WriteLine("");
             
         }
         public void InitializeBattle()
         {
-            SpawnMonsters();           
-            fighters[dayNumber * 4 - 1].DisplayStats();
-            fighters[dayNumber * 4 - 2].DisplayStats();
+            SpawnMonsters();
             Console.ReadLine();
             Console.Clear();
+            fighters[dayNumber * 4 - 1].DisplayStats();
+            fighters[dayNumber * 4 - 2].DisplayStats();
+            
             Battle();
         }
         public void Battle()
         {
-            AllocateTargets();
-            
+            AllocateTargets();      
             AttackTargetsInOrder();
-            Console.ReadLine();
             ResolveTurn();
             
         }
@@ -224,17 +272,22 @@ namespace DiceGameProject
            
             fighters[dayNumber * 4 - 3].DisplayStats();
             fighters[dayNumber * 4 - 4].DisplayStats();
-            
+            Console.WriteLine("1st Monster Status:");
+            Console.WriteLine("");
             if (fighters[dayNumber * 4 - 2].health < 1)
             {
                 Console.WriteLine("{0} 1 defeated.", fighters[dayNumber * 4 - 2].name);
+                Console.WriteLine("");
             } else
             {
                 fighters[dayNumber * 4 - 2].DisplayStats();
             }
+            Console.WriteLine("2nd monster Status:");
+            Console.WriteLine("");
             if (fighters[dayNumber * 4 - 1].health < 1)
             {
                 Console.WriteLine("{0} 2 defeated.", fighters[dayNumber * 4 - 1].name);
+                Console.WriteLine("");
             } else
             {
                 fighters[dayNumber * 4 - 1].DisplayStats();
@@ -244,6 +297,7 @@ namespace DiceGameProject
             if (player1.health < 1 || player2.health < 1)
             {
                 Console.WriteLine("One or more player has died.  Game Over.");
+                Console.WriteLine("");
                 alive = false;
                 Console.ReadLine();
             } else if (fighters[dayNumber * 4 -1].health < 1 && fighters[dayNumber * 4 - 2].health < 1)
@@ -253,6 +307,7 @@ namespace DiceGameProject
                 fighters[dayNumber * 4 - 2].GiveLoot(player1);
                 fighters[dayNumber * 4 - 2].GiveLoot(player2);
                 Console.WriteLine("{0}s slain. Got {1} gold.", fighters[dayNumber * 4 -1].name, (fighters[dayNumber * 4 - 1].goldAmount + fighters[dayNumber * 4 - 2].goldAmount));
+                Console.WriteLine("");
                 Console.WriteLine("{0} has {1} gold.", player1.name, player1.goldAmount);
                 Console.WriteLine("{0} has {1} gold.", player2.name, player2.goldAmount);
 

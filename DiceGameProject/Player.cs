@@ -21,17 +21,14 @@ namespace DiceGameProject
             speed = 8;
             accuracy = 16;
             goldAmount = 0;
+            description = "You.";
         }
        
         public void GetPlayerName()
         {
             Console.WriteLine("{0} enter name:", name);
             name = Console.ReadLine();
-        }
-        public void DisplayPlayerStatus()
-        {
-            Console.WriteLine("{0} is at {1} health.", name, health);
-        }
+        }   
         public void PickTarget()
         {
             Console.WriteLine("{0}, Do you want to attack the first or second monster?  Enter '1' or '2'", name);
@@ -50,5 +47,6 @@ namespace DiceGameProject
                     break;
             }
         }
+        
     }
 }

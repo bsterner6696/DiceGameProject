@@ -17,7 +17,7 @@ namespace DiceGameProject
         public Goblin()
         {
             name = "Goblin";
-            flavorText = "A common fart goblin.  Eats babies.";
+            description = "A couple of common fart goblins.  Eat babies.";
             GetGoblinStats();
         }
         public void GetGoblinStats()
@@ -26,7 +26,9 @@ namespace DiceGameProject
             damage = d6.Roll();
             accuracy = 8 + d8.Roll();
             speed = 6 + d4.Roll();
-            goldAmount = d8.Roll() + d8.Roll();
+            goldAmount = d8.Roll() * 3 ;
         }
+
+
     }
 }

@@ -16,8 +16,8 @@ namespace DiceGameProject
         public int goldAmount;
         public int target;
         public Fighter specificTarget;
-        public string flavorText;
         public int maxHealth;
+        public string description;
         public Shop shop = new Shop();
         
         D20 d20 = new D20() { };
@@ -30,6 +30,7 @@ namespace DiceGameProject
                 int totalDamage = damage + shop.weapon.GetWeaponDamage();
                 fighter.health -= totalDamage;
                 Console.WriteLine("{0} hit {1} for {2} damage.", name, fighter.name, totalDamage);
+                Console.WriteLine("");
             }
         }
         public void PickHumanTargetAtRandom()
@@ -56,13 +57,14 @@ namespace DiceGameProject
         }
         public void DisplayStats()
         {
-            Console.WriteLine("{0}: has {1} health. Hits for {2} damage, with an accuracy of {3}, at a speed of {4}.", name, health, damage, accuracy, speed);
-            Console.WriteLine(flavorText);
+            Console.WriteLine("{0}: has {1} health.", name, health);
+            Console.WriteLine("");
         }
 
         public void DisplayGold()
         {
             Console.WriteLine("{0} has {1} gold.", name, goldAmount);
+            Console.WriteLine("");
         }
 
         public void Shop()
@@ -161,6 +163,7 @@ namespace DiceGameProject
                     {
                         health = maxHealth;
                         Console.WriteLine("{0} rested and is back to full health of {1}", name, maxHealth);
+                        Shop();
                     } else
                     {
                         Console.WriteLine("Get something you can afford.");
@@ -179,7 +182,10 @@ namespace DiceGameProject
                     }
                     else
                     {
+                        
                         Console.WriteLine("Get something you can afford.");
+                        
+
                         Shop();
                     }
 
@@ -192,15 +198,20 @@ namespace DiceGameProject
                     Shop();
                     break;
             }
+            Console.Clear();
         }
         public void Train()
         {
+            Console.WriteLine("");
             Console.WriteLine("Options to train:");
+            Console.WriteLine("");
             Console.WriteLine("Max Health");
             Console.WriteLine("Base Damage");
             Console.WriteLine("Speed");
             Console.WriteLine("Accuracy");
+            Console.WriteLine("");
             Console.WriteLine("Enter what you want to train.");
+            Console.WriteLine("");
             string tChoice = Console.ReadLine();
                 switch (tChoice.ToLower())
             {
@@ -209,23 +220,28 @@ namespace DiceGameProject
                 case "maxhealth":
                     maxHealth += 5;
                     health = maxHealth;
+                    Console.WriteLine("");
                     Console.WriteLine("Max health increased by 5 to {0}", maxHealth);
                     break;
                 case "base damage":
                 case "damage":
                 case "basedamage":
                     damage += 2;
+                    Console.WriteLine("");
                     Console.WriteLine("Base damage increased by 2 to {0}", damage);
                     break;
                 case "speed":
                     speed += 2;
+                    Console.WriteLine("");
                     Console.WriteLine("Speed increased by 2 to {0}", speed);
                     break;
                 case "accuracy":
                     accuracy += 1;
+                    Console.WriteLine("");
                     Console.WriteLine("Accuracy increased by 1 to {0}", accuracy);
                     break;
                 default:
+                    Console.WriteLine("");
                     Console.WriteLine("Pick a valid option");
                     Train();
                     break;

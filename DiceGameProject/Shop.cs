@@ -12,8 +12,9 @@ namespace DiceGameProject
         public string request;
         public void DisplayShopOptions()
         {
-            Console.WriteLine("Welcome to the village");
+            Console.WriteLine("");
             Console.WriteLine("For Sale");
+            Console.WriteLine("");
             Console.WriteLine("Dagger: 20g");
             Console.WriteLine("Sword: 50g");
             Console.WriteLine("BattleAxe: 100g");

@@ -17,7 +17,7 @@ namespace DiceGameProject
         public Gremlin()
         {
             name = "Gremlin";
-            flavorText = "A crusty little gremlin.";
+            description = "A couple of crusty little gremlins.";
             GetGremlinStats();
         }
        
