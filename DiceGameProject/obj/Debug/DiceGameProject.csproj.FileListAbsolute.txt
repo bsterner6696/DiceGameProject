@@ -1,0 +1,6 @@
+D:\devclass\visual studio\DiceGameProject\DiceGameProject\bin\Debug\DiceGameProject.exe.config
+D:\devclass\visual studio\DiceGameProject\DiceGameProject\bin\Debug\DiceGameProject.exe
+D:\devclass\visual studio\DiceGameProject\DiceGameProject\bin\Debug\DiceGameProject.pdb
+D:\devclass\visual studio\DiceGameProject\DiceGameProject\obj\Debug\DiceGameProject.csprojResolveAssemblyReference.cache
+D:\devclass\visual studio\DiceGameProject\DiceGameProject\obj\Debug\DiceGameProject.exe
+D:\devclass\visual studio\DiceGameProject\DiceGameProject\obj\Debug\DiceGameProject.pdb
