@@ -10,7 +10,7 @@ namespace DiceGameProject
     {
         public ComputerPlayer()
         {
-            name = "Computer Player";
+            name = "computer player";
         }
         D4 d4 = new D4();
         public override void PickTarget()

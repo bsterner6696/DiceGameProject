@@ -23,26 +23,28 @@ namespace DiceGameProject
         {
             dayNumber = 1;
         }
-              
-        
+
+
         public void GetNumberOfPlayers()
         {
             Console.WriteLine("Enter desired number of players. (1 or 2)");
-            string numberPlayers = Console.ReadLine();
-            switch (numberPlayers)
+            ConsoleKeyInfo numberPlayers = Console.ReadKey();
+            if (numberPlayers.KeyChar == '1')
             {
-                case "1":
-                    player1 = new HumanPlayer("player 1");
-                    player2 = new ComputerPlayer();
-                    break;
-                case "2":
-                    player1 = new HumanPlayer("player 1");
-                    player2 = new HumanPlayer("player 2");
-                    break;
-                default:
-                    Console.WriteLine("Enter valid choice. (1 or 2)");
-                    GetNumberOfPlayers();
-                    break;
+                player1 = new HumanPlayer("player 1");
+                player2 = new ComputerPlayer();
+                Console.WriteLine("");
+            }
+            else if (numberPlayers.KeyChar == '2')
+            {
+                player1 = new HumanPlayer("player 1");
+                player2 = new HumanPlayer("player 2");
+                Console.WriteLine("");
+            }
+            else
+            {
+                Console.WriteLine("Press either '1' or '2'");
+                GetNumberOfPlayers();
             }
         }
         public void AssignNames()
@@ -276,6 +278,7 @@ namespace DiceGameProject
         {
 
             Console.ReadKey();
+            Console.Clear();
             if (GetMonster(1).health < 1)
             {
                 Console.WriteLine("{0} 1 defeated.", GetMonster(1).name);
@@ -301,18 +304,20 @@ namespace DiceGameProject
                 Console.WriteLine("");
                 alive = false;
                 Console.ReadKey();
+                Console.Clear();
             } else if (fighters[dayNumber * 4 -1].health < 1 && fighters[dayNumber * 4 - 2].health < 1)
             {
                 GetMonster(1).GiveLoot(player1);
                 GetMonster(1).GiveLoot(player2);
                 GetMonster(2).GiveLoot(player1);
                 GetMonster(2).GiveLoot(player2);
-                Console.WriteLine("Monsters slain. Got {1} gold.", (GetMonster(1).goldAmount + GetMonster(2).goldAmount));
+                Console.WriteLine("Monsters slain. Got {0} gold.", (GetMonster(1).goldAmount + GetMonster(2).goldAmount));
                 Console.WriteLine("");
                 Console.WriteLine("{0} has {1} gold.", player1.name, player1.goldAmount);
                 Console.WriteLine("{0} has {1} gold.", player2.name, player2.goldAmount);
 
                 Console.ReadKey();
+                Console.Clear();
             } else
             {
                 Battle();
@@ -327,6 +332,7 @@ namespace DiceGameProject
             Console.Clear();
             Console.WriteLine("Congratulations you cleared day number {0}.  Now you get to go to the village to shop, train, or rest, if you have the coin.", dayNumber);
             Console.ReadKey();
+            Console.Clear();
         }
 
     }

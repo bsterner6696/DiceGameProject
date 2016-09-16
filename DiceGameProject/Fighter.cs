@@ -46,7 +46,7 @@ namespace DiceGameProject
         }
         public virtual void SetName()
         {
-            Console.WriteLine("{0} enter name:", name);
+            Console.WriteLine("Enter name for {0}.", name);
             name = Console.ReadLine();
         }
         public virtual void PickTarget()
