@@ -20,7 +20,7 @@ namespace DiceGameProject
         {
             using (StreamWriter outputFile = new StreamWriter("highScores.txt", true))
             {
-                outputFile.WriteLine(";{0}_{1}_{2}", score, firstName, secondName);
+                outputFile.WriteLine(";{0} {1} & {2}", score, firstName, secondName);
             }
         }
 
@@ -30,6 +30,7 @@ namespace DiceGameProject
             string[] splitScores;
             splitScores = data.Split(';');
             Array.Sort(splitScores);
+            Array.Reverse(splitScores);
             return splitScores;
         }
      

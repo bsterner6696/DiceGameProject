@@ -87,7 +87,7 @@ namespace DiceGameProject
                 GoThroughDay();
             } else
             {
-                PromptToRecordScore();     
+                PromptToRecordScore();
             }
 
         }
@@ -249,7 +249,8 @@ namespace DiceGameProject
             AllocateTargets();      
             AttackTargetsInOrder();
             ResolveTurn();
-            AskToContinue();      
+            AskToContinue();
+
         }
         
         public void DisplayMonstersHealth()
@@ -331,21 +332,17 @@ namespace DiceGameProject
         public void AskToContinue()
         {
             Console.WriteLine("Continue? Type yes to continue or no to quit.");
-            string choice = Console.ReadLine();
-            if (choice == "yes")
+            string continueChoice = Console.ReadLine();
+            if (continueChoice == "yes")
             {
 
                 alive = true;
             }
-            else if (choice == "no")
+            else if (continueChoice == "no")
             {
                 alive = false;
             }
-            else
-            {
-                Console.WriteLine("Type yes or no.");
-                AskToContinue();             
-            }
+            
         }
         public void PromptToRecordScore()
         {
