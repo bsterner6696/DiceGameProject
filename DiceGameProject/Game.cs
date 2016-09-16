@@ -13,13 +13,7 @@ namespace DiceGameProject
         Player player1;
         Player player2;
         List<Monster> monsters = new List<Monster>();
-        
-        D4 d4 = new D4();
         D6 d6 = new D6();
-        D8 d8 = new D8();
-        D10 d10 = new D10();
-        D12 d12 = new D12();
-        D20 d20 = new D20();
         bool alive = true;
         HighScore highScore = new HighScore();
         string score;
@@ -27,7 +21,17 @@ namespace DiceGameProject
         {
             dayNumber = 1;
         }
-
+        public Monster GetMonster(int number)
+        {
+            if (number == 1)
+            {
+                return monsters[dayNumber * 2 - 2];
+            }
+            else
+            {
+                return monsters[dayNumber * 2 - 1];
+            }
+        }
 
         public void GetNumberOfPlayers()
         {
@@ -92,79 +96,26 @@ namespace DiceGameProject
 
         }
 
-        
-
-        public void AllocateTargets()
+        public void InitializeBattle()
         {
-            player1.PickTarget();
-            if (player1.target == 1)
-            {
-                player1.specificTarget = GetMonster(2);
-            } else
-            {
-                player1.specificTarget = GetMonster(1);
-            }
-             player2.PickTarget();
-             if (player2.target == 1)
+            SpawnMonsters();
+            AnnounceMonsters();
+            SetMonsterNames();
+            Console.ReadLine();
+            Console.Clear();
+            GetMonster(1).DisplayStats();
+            GetMonster(2).DisplayStats();            
+            Battle();
+        }
+
+         public void Battle()
                 {
-                    player2.specificTarget = GetMonster(2);
-                }
-                else
-                {
-                    player2.specificTarget = GetMonster(1);
-                }
-            
-            GetMonster(2).PickTarget();
-            if (GetMonster(2).target == 4)
-            {
-                 GetMonster(2).specificTarget = player1;
-            }
-            else
-            {
-                GetMonster(2).specificTarget = player2;
-            }
-            GetMonster(1).PickTarget();
-            if (GetMonster(1).target == 4)
-            {
-                GetMonster(1).specificTarget = player1;
-            }
-            else
-            {
-                GetMonster(1).specificTarget = player2;
-            }
+                    AllocateTargets();      
+                    AttackTargetsInOrder();
+                    ResolveTurn();
+                    AskToContinue();
 
-        }
-        public Fighter[] DetermineAttackOrder()
-        {
-            int player1Speed = player1.speed + d6.Roll();
-            int player2Speed = player2.speed + d6.Roll();
-            int monster1Speed = GetMonster(1).speed + d6.Roll();
-            int monster2Speed = GetMonster(2).speed + d6.Roll();
-            int[] speeds = { player1Speed, player2Speed, monster1Speed, monster2Speed };
-            Fighter[] fightersSpeed = { player1, player2, GetMonster(1), GetMonster(2) };
-            Array.Sort(speeds, fightersSpeed);
-            return fightersSpeed;
-        }
-        public void AttackTargetsInOrder()
-        {
-            Fighter[] fighters = DetermineAttackOrder();
-            fighters[3].Attack(fighters[3].specificTarget);
-            if (fighters[2].health > 0)
-            {
-                fighters[2].Attack(fighters[2].specificTarget);
-            }
-            if (fighters[1].health > 0)
-            {
-                fighters[1].Attack(fighters[1].specificTarget);
-            }
-            if (fighters[0].health > 0)
-            {
-                fighters[0].Attack(fighters[0].specificTarget);
-            }
-
-        }
-        
-      
+                }
         public void SpawnMonsters()
         {
             if (dayNumber < 11)
@@ -227,46 +178,125 @@ namespace DiceGameProject
             Console.WriteLine("");
 
         }
-        public void SetMonsterNames()
+
+         public void SetMonsterNames()
+                {
+                    GetMonster(1).firstOrSecond = 1;
+                    GetMonster(1).SetName();
+                    GetMonster(2).SetName();
+                }
+        public void AllocateTargets()
         {
-            GetMonster(1).firstOrSecond = 1;
-            GetMonster(1).SetName();
-            GetMonster(2).SetName();
-        }
-        public void InitializeBattle()
-        {
-            SpawnMonsters();
-            AnnounceMonsters();
-            SetMonsterNames();
-            Console.ReadLine();
-            Console.Clear();
-            GetMonster(1).DisplayStats();
-            GetMonster(2).DisplayStats();            
-            Battle();
-        }
-        public void Battle()
-        {
-            AllocateTargets();      
-            AttackTargetsInOrder();
-            ResolveTurn();
-            AskToContinue();
+            player1.PickTarget();
+            if (player1.target == 1)
+            {
+                player1.specificTarget = GetMonster(2);
+            } else
+            {
+                player1.specificTarget = GetMonster(1);
+            }
+             player2.PickTarget();
+             if (player2.target == 1)
+                {
+                    player2.specificTarget = GetMonster(2);
+                }
+                else
+                {
+                    player2.specificTarget = GetMonster(1);
+                }
+            
+            GetMonster(2).PickTarget();
+            if (GetMonster(2).target == 4)
+            {
+                 GetMonster(2).specificTarget = player1;
+            }
+            else
+            {
+                GetMonster(2).specificTarget = player2;
+            }
+            GetMonster(1).PickTarget();
+            if (GetMonster(1).target == 4)
+            {
+                GetMonster(1).specificTarget = player1;
+            }
+            else
+            {
+                GetMonster(1).specificTarget = player2;
+            }
 
         }
-        
-        public void DisplayMonstersHealth()
+        public Fighter[] DetermineAttackOrder()
         {
-            GetMonster(1).DisplayStats();
-            GetMonster(2).DisplayStats();
+            int player1Speed = player1.speed + d6.Roll();
+            int player2Speed = player2.speed + d6.Roll();
+            int monster1Speed = GetMonster(1).speed + d6.Roll();
+            int monster2Speed = GetMonster(2).speed + d6.Roll();
+            int[] speeds = { player1Speed, player2Speed, monster1Speed, monster2Speed };
+            Fighter[] fightersSpeed = { player1, player2, GetMonster(1), GetMonster(2) };
+            Array.Sort(speeds, fightersSpeed);
+            return fightersSpeed;
         }
-        public Monster GetMonster(int number)
+        public void AttackTargetsInOrder()
         {
-            if (number== 1)
+            Fighter[] fighters = DetermineAttackOrder();
+            if (fighters[3].health > 0)
             {
-                return monsters[dayNumber * 2 - 2];
-            } else {
-                return monsters[dayNumber * 2 - 1];
+                fighters[3].Attack(fighters[3].specificTarget);
+            }
+            if (fighters[2].health > 0)
+            {
+                fighters[2].Attack(fighters[2].specificTarget);
+            }
+            if (fighters[1].health > 0)
+            {
+                fighters[1].Attack(fighters[1].specificTarget);
+            }
+            if (fighters[0].health > 0)
+            {
+                fighters[0].Attack(fighters[0].specificTarget);
+            }
+
+        }
+
+
+        public void PromptToRecordScore()
+        {
+            Console.WriteLine("Do you wish to record your score in the score log?  Enter 'yes' or 'no'");
+            string answer = Console.ReadLine();
+            if (answer == "yes")
+            {
+                ExecuteScoring();
+            }
+            else
+            {
+                Console.WriteLine("Thanks for playing.");
             }
         }
+        public void GetScore()
+        {
+            int totalGold = player1.maxGold + player2.maxGold;
+            score = totalGold.ToString();
+        }
+        public void ExecuteScoring()
+        {
+            GetScore();
+            highScore.WriteScore(player1.name, player2.name, score);
+            ListHighScores();
+        }
+
+        public void ListHighScores()
+        {
+            Console.WriteLine("HIGH SCORES");
+            Console.WriteLine("");
+            string[] scores = highScore.sortScores(highScore.fileReader("highScores.txt"));
+            foreach (string s in scores)
+            {
+                Console.WriteLine(s);
+                Console.WriteLine("");
+            }
+            Console.ReadLine();
+        }
+
         public void ResolveTurn()
         {
 
@@ -318,17 +348,7 @@ namespace DiceGameProject
                 Battle();
             }
         }
-        public void AdvanceDay()
-        {
-            dayNumber += 1;
-        }
-        public void Celebrate()
-        {
-            Console.Clear();
-            Console.WriteLine("Congratulations you cleared day number {0}.  Now you get to go to the village to shop, train, or rest, if you have the coin.", dayNumber);
-            Console.ReadLine();
-            Console.Clear();
-        }
+
         public void AskToContinue()
         {
             Console.WriteLine("Continue? Type yes to continue or no to quit.");
@@ -342,43 +362,22 @@ namespace DiceGameProject
             {
                 alive = false;
             }
-            
-        }
-        public void PromptToRecordScore()
-        {
-            Console.WriteLine("Do you wish to record your score in the score log?  Enter 'yes' or 'no'");
-            string answer = Console.ReadLine();
-            if (answer == "yes")
-            {
-                ExecuteScoring();
-            } else
-            {
-                Console.WriteLine("Thanks for playing.");
-            }
-        }
-        public void GetScore()
-        {
-            int totalGold = player1.maxGold + player2.maxGold;
-            score = totalGold.ToString();
-        }
-        public void ExecuteScoring()
-        {
-            GetScore();
-            highScore.WriteScore(player1.name, player2.name, score);
-            ListHighScores();
+
         }
 
-        public void ListHighScores()
+
+        public void AdvanceDay()
         {
-            Console.WriteLine("HIGH SCORES");
-            Console.WriteLine("");
-            string[] scores = highScore.sortScores(highScore.fileReader("highScores.txt"));
-            foreach (string s in scores)
-            {
-                Console.WriteLine(s);
-                Console.WriteLine("");
-            }
-            Console.ReadLine();
+            dayNumber += 1;
         }
+        public void Celebrate()
+        {
+            Console.Clear();
+            Console.WriteLine("Congratulations you cleared day number {0}.  Now you get to go to the village to shop, train, or rest, if you have the coin.", dayNumber);
+            Console.ReadLine();
+            Console.Clear();
+        }
+       
+        
     }
 }

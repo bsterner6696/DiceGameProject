@@ -145,9 +145,7 @@ namespace DiceGameProject
                         health = maxHealth;
                         goldAmount -= 10;
                         Console.WriteLine("{0} rested and is back to full health of {1}", name, maxHealth);
-                        DisplayGold();
-                        shop.DisplayShopOptions();
-                        Shop();
+                        Console.ReadLine();
                     }
                     else
                     {
@@ -167,13 +165,9 @@ namespace DiceGameProject
                     }
                     else
                     {
-
                         Console.WriteLine("Get something you can afford.");
-
-
                         Shop();
                     }
-
                     break;
                 case "none":
                 case "leave":

@@ -43,7 +43,6 @@ namespace DiceGameProject
             goldAmount = 0;
 
         }
-
         public virtual void PickTarget()
         {
 
