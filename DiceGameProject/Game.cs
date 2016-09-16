@@ -112,8 +112,10 @@ namespace DiceGameProject
                 {
                     AllocateTargets();      
                     AttackTargetsInOrder();
+                    DisplayRoundEndStats();
                     ResolveTurn();
-                    AskToContinue();
+            UpdateScore();
+            AskToContinue();
 
                 }
         public void SpawnMonsters()
@@ -288,7 +290,7 @@ namespace DiceGameProject
         {
             Console.WriteLine("HIGH SCORES");
             Console.WriteLine("");
-            string[] scores = highScore.sortScores(highScore.fileReader("highScores.txt"));
+            string[] scores = highScore.SortScores(highScore.ReadFile("highScores.txt"));
             foreach (string s in scores)
             {
                 Console.WriteLine(s);
@@ -300,27 +302,6 @@ namespace DiceGameProject
         public void ResolveTurn()
         {
 
-            Console.ReadLine();
-            Console.Clear();
-            if (GetMonster(1).health < 1)
-            {
-                Console.WriteLine("{0} 1 defeated.", GetMonster(1).name);
-                Console.WriteLine("");
-            } else
-            {
-                GetMonster(1).DisplayStats();
-            }
-            
-            if (GetMonster(2).health < 1)
-            {
-                Console.WriteLine("{0} 2 defeated.", GetMonster(2).name);
-                Console.WriteLine("");
-            } else
-            {
-                GetMonster(2).DisplayStats();
-            }
-            Console.ReadLine();
-            Console.Clear();
             if (player1.health < 1 || player2.health < 1)
             {
                 Console.WriteLine("One or more player has died.  Game Over.");
@@ -338,8 +319,6 @@ namespace DiceGameProject
                 Console.WriteLine("");
                 Console.WriteLine("{0} has {1} gold.", player1.name, player1.goldAmount);
                 Console.WriteLine("{0} has {1} gold.", player2.name, player2.goldAmount);
-                player1.UpdateScore();
-                player2.UpdateScore();
 
                 Console.ReadLine();
                 Console.Clear();
@@ -347,6 +326,40 @@ namespace DiceGameProject
             {
                 Battle();
             }
+        }
+        public void UpdateScore()
+        {
+            player1.UpdateScore();
+            player2.UpdateScore();
+
+        }
+
+        public void DisplayRoundEndStats()
+        {
+
+            Console.ReadLine();
+            Console.Clear();
+            if (GetMonster(1).health < 1)
+            {
+                Console.WriteLine("{0} 1 defeated.", GetMonster(1).name);
+                Console.WriteLine("");
+            }
+            else
+            {
+                GetMonster(1).DisplayStats();
+            }
+
+            if (GetMonster(2).health < 1)
+            {
+                Console.WriteLine("{0} 2 defeated.", GetMonster(2).name);
+                Console.WriteLine("");
+            }
+            else
+            {
+                GetMonster(2).DisplayStats();
+            }
+            Console.ReadLine();
+            Console.Clear();
         }
 
         public void AskToContinue()

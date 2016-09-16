@@ -9,7 +9,7 @@ namespace DiceGameProject
 {
     class HighScore
     {
-        public string fileReader(string file)
+        public string ReadFile(string file)
         {
             StreamReader t = new StreamReader(file);
             string data = t.ReadToEnd();
@@ -24,7 +24,7 @@ namespace DiceGameProject
             }
         }
 
-        public string[] sortScores(string unsplitText)
+        public string[] SortScores(string unsplitText)
         {
             string data = unsplitText;           
             string[] splitScores;
