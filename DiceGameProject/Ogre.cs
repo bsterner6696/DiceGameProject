@@ -19,9 +19,9 @@ namespace DiceGameProject
         {
             name = "Ogre";
             description = "It's been said these guys are like onions.";
-            GetOgreStats();
+            ResetStats();
         }
-        public void GetOgreStats()
+        public override void ResetStats()
         {
             health = d8.Roll() + 10;
             damage = d12.Roll() + 4;

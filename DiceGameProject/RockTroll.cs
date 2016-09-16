@@ -19,9 +19,9 @@ namespace DiceGameProject
         {
             name = "Rock Troll";
             description = "These monsters eat rocks.  That's nuts.";
-            GetTrollStats();
+            ResetStats();
         }
-        public void GetTrollStats()
+        public override void ResetStats()
         {
             health = 20;
             damage = d12.Roll() * 2;

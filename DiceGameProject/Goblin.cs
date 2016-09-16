@@ -18,9 +18,9 @@ namespace DiceGameProject
         {
             name = "Goblin";
             description = "A couple of common fart goblins.  Eat babies.";
-            GetGoblinStats();
+            ResetStats();
         }
-        public void GetGoblinStats()
+        public override void ResetStats()
         {
             health = d6.Roll() + 1;
             damage = d6.Roll();

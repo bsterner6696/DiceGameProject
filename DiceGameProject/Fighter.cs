@@ -18,35 +18,42 @@ namespace DiceGameProject
         public Fighter specificTarget;
         public int maxHealth;
         public string description;
+        public int firstOrSecond;
         public Shop shop = new Shop();
         
         D20 d20 = new D20() { };
         
 
-        public void Attack(Fighter fighter)
+        public virtual void Attack(Fighter fighter)
         {
             if (accuracy >= d20.Roll())
             {
-                int totalDamage = damage + shop.weapon.GetWeaponDamage();
+                int totalDamage = damage;
                 fighter.health -= totalDamage;
                 Console.WriteLine("{0} hit {1} for {2} damage.", name, fighter.name, totalDamage);
                 Console.WriteLine("");
             }
         }
-        public void PickHumanTargetAtRandom()
+        public virtual void ResetStats()
         {
-            if (d20.Roll() > 10)
-            {
-                target = 3;
-
-            }
-            else
-            {
-                target = 4;
-
-            }
+            health = 30;
+            damage = 3;
+            maxHealth = 30;
+            speed = 8;
+            accuracy = 16;
+            goldAmount = 0;
 
         }
+        public virtual void SetName()
+        {
+            Console.WriteLine("{0} enter name:", name);
+            name = Console.ReadLine();
+        }
+        public virtual void PickTarget()
+        {
+
+        }
+
         public void GiveLoot(Player player)
         {
             if (health < 1)

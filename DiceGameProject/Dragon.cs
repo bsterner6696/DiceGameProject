@@ -19,10 +19,10 @@ namespace DiceGameProject
         {
             name = "Dragon";
             description = "Holy shit, dragons! This must be endgame.";
-            GetDragonStats();
+            ResetStats();
 
         }
-        public void GetDragonStats()
+        public override void ResetStats()
         {
             health = d8.Roll() * 5;
             damage = d20.Roll() + d4.Roll() + d6.Roll() + d8.Roll() + d10.Roll() + d12.Roll();

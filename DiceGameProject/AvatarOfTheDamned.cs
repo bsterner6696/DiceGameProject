@@ -19,9 +19,9 @@ namespace DiceGameProject
         {
             name = "Avatar of the Damned";
             description = "Some scary looking monster things.  Their name sounds a lot cooler than they actually are.";
-            GetAvatarStats();
+            ResetStats();
         }
-        public void GetAvatarStats()
+        public override void ResetStats()
         {
             health = d4.Roll() * 5;
             damage = d4.Roll() + d6.Roll() + d8.Roll() + d10.Roll() + d12.Roll();

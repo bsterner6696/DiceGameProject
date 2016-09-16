@@ -19,9 +19,9 @@ namespace DiceGameProject
         {
             name = "Lesser Chaos Daemon";
             description = "Blood for the Blood God.";
-            GetDaemonStats();
+            ResetStats();
         }
-        public void GetDaemonStats()
+        public override void ResetStats()
         {
             health = d20.Roll();
             damage = d8.Roll() * 3;

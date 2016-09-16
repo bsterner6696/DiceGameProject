@@ -19,9 +19,9 @@ namespace DiceGameProject
         {
             name = "Dire Wolf";
             description = "They're like dogs, but they want to kill you.";
-            GetWolfStats();
+            ResetStats();
         }
-        public void GetWolfStats()
+        public override void ResetStats()
         {
             health = d8.Roll() + 5;
             damage = d6.Roll() + 4;

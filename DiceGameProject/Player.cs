@@ -23,28 +23,14 @@ namespace DiceGameProject
             goldAmount = 0;
             description = "You.";
         }
-       
-        public void GetPlayerName()
+        public override void Attack(Fighter fighter)
         {
-            Console.WriteLine("{0} enter name:", name);
-            name = Console.ReadLine();
-        }   
-        public void PickTarget()
-        {
-            Console.WriteLine("{0}, Do you want to attack the first or second monster?  Enter '1' or '2'", name);
-            string tChoice = Console.ReadLine();
-            switch (tChoice)
+            if (accuracy >= d20.Roll())
             {
-                case "1":
-                    target = 2;
-                    break;
-                case "2":
-                    target = 1;
-                    break;
-                default:
-                    Console.WriteLine("Choose again");
-                    PickTarget();
-                    break;
+                int totalDamage = damage + shop.weapon.GetWeaponDamage();
+                fighter.health -= totalDamage;
+                Console.WriteLine("{0} hit {1} for {2} damage.", name, fighter.name, totalDamage);
+                Console.WriteLine("");
             }
         }
         

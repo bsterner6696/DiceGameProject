@@ -8,9 +8,12 @@ namespace DiceGameProject
 {
     public class ComputerPlayer : Player
     {
-        public ComputerPlayer() { }
+        public ComputerPlayer()
+        {
+            name = "Computer Player";
+        }
         D4 d4 = new D4();
-        public void PickTargetAtRandom()
+        public override void PickTarget()
         {
             if (d4.Roll() > 2)
             {
@@ -23,8 +26,6 @@ namespace DiceGameProject
                 Console.WriteLine("{0} will attack the first monster.", name);
                 Console.WriteLine("");
             }
-        }
-            
-                
+        }            
     }
 }

@@ -18,10 +18,10 @@ namespace DiceGameProject
         {
             name = "Gremlin";
             description = "A couple of crusty little gremlins.";
-            GetGremlinStats();
+            ResetStats();
         }
        
-        public void GetGremlinStats()
+        public override void ResetStats()
         {
             health = d4.Roll() + 1;
             damage = d4.Roll();
