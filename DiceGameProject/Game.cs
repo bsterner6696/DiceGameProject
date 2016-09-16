@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace DiceGameProject
 {
     public class Game
     {
         int dayNumber;
-        Player player1 = new Player();
-        Player player2 = new Player();
-        List<Fighter> fighters = new List<Fighter>();
+        Player player1;
+        Player player2;
+        List<Monster> monsters = new List<Monster>();
+        
         D4 d4 = new D4();
         D6 d6 = new D6();
         D8 d8 = new D8();
@@ -19,6 +21,8 @@ namespace DiceGameProject
         D12 d12 = new D12();
         D20 d20 = new D20();
         bool alive = true;
+        HighScore highScore = new HighScore();
+        string score;
         public Game()
         {
             dayNumber = 1;
@@ -28,14 +32,14 @@ namespace DiceGameProject
         public void GetNumberOfPlayers()
         {
             Console.WriteLine("Enter desired number of players. (1 or 2)");
-            ConsoleKeyInfo numberPlayers = Console.ReadKey();
-            if (numberPlayers.KeyChar == '1')
+            string numberPlayers = Console.ReadLine();
+            if (numberPlayers == "1")
             {
                 player1 = new HumanPlayer("player 1");
                 player2 = new ComputerPlayer();
                 Console.WriteLine("");
             }
-            else if (numberPlayers.KeyChar == '2')
+            else if (numberPlayers == "2")
             {
                 player1 = new HumanPlayer("player 1");
                 player2 = new HumanPlayer("player 2");
@@ -62,7 +66,7 @@ namespace DiceGameProject
   
         }
         public void GoThroughDay()
-        {
+        {     
             InitializeBattle();
             if (alive)
             {
@@ -83,7 +87,7 @@ namespace DiceGameProject
                 GoThroughDay();
             } else
             {
-
+                PromptToRecordScore();     
             }
 
         }
@@ -160,59 +164,57 @@ namespace DiceGameProject
 
         }
         
-        public void AddPlayersToBattle()
-        {
-            fighters.Add(player1);
-            fighters.Add(player2);
-        }
+      
         public void SpawnMonsters()
         {
             if (dayNumber < 11)
             {
-                fighters.Add(new Gremlin());
-                fighters.Add(new Gremlin());
+                
+                monsters.Add(new Gremlin());
+                monsters.Add(new Gremlin());
                 GetMonster(1).ResetStats();
             }
             else if (10 < dayNumber && 21 > dayNumber)
             {
-                fighters.Add(new Goblin());
-                fighters.Add(new Goblin());
+                monsters.Add(new Goblin());
+                monsters.Add(new Goblin());
                 GetMonster(1).ResetStats();
             }
             else if (20 < dayNumber && dayNumber < 31)
             {
-                fighters.Add(new DireWolf());
-                fighters.Add(new DireWolf());
+                monsters.Add(new DireWolf());
+                monsters.Add(new DireWolf());
                 GetMonster(1).ResetStats();
             }
             else if (30 < dayNumber && dayNumber < 41)
             {
-                fighters.Add(new Ogre());
-                fighters.Add(new Ogre());
+                monsters.Add(new Ogre());
+                monsters.Add(new Ogre());
                 GetMonster(1).ResetStats();
             }
             else if (40 < dayNumber && dayNumber < 51)
             {
-                fighters.Add(new RockTroll());
-                fighters.Add(new RockTroll());
+                monsters.Add(new RockTroll());
+                monsters.Add(new RockTroll());
                 GetMonster(1).ResetStats();
             }
             else if (50 < dayNumber && dayNumber < 61)
             {
-                fighters.Add(new Daemon());
-                fighters.Add(new Daemon());
+                monsters.Add(new Daemon());
+                monsters.Add(new Daemon());
                 GetMonster(1).ResetStats();
+
             }
             else if (60 < dayNumber && dayNumber < 71)
             {
-                fighters.Add(new AvatarOfTheDamned());
-                fighters.Add(new AvatarOfTheDamned());
+                monsters.Add(new AvatarOfTheDamned());
+                monsters.Add(new AvatarOfTheDamned());
                 GetMonster(1).ResetStats();
             }
             else if (70 < dayNumber)
             {
-                fighters.Add(new Dragon());
-                fighters.Add(new Dragon());
+                monsters.Add(new Dragon());
+                monsters.Add(new Dragon());
                 GetMonster(1).ResetStats();
             }
             
@@ -233,11 +235,10 @@ namespace DiceGameProject
         }
         public void InitializeBattle()
         {
-            AddPlayersToBattle();
             SpawnMonsters();
             AnnounceMonsters();
             SetMonsterNames();
-            Console.ReadKey();
+            Console.ReadLine();
             Console.Clear();
             GetMonster(1).DisplayStats();
             GetMonster(2).DisplayStats();            
@@ -248,36 +249,27 @@ namespace DiceGameProject
             AllocateTargets();      
             AttackTargetsInOrder();
             ResolveTurn();
-            
+            AskToContinue();      
         }
-        public Fighter GetPlayers(int number)
-        {
-            if (number == 1)
-            {
-                return fighters[dayNumber * 4 - 4];
-            } else
-            {
-                return fighters[dayNumber * 4 - 3];
-            }
-        }
+        
         public void DisplayMonstersHealth()
         {
             GetMonster(1).DisplayStats();
             GetMonster(2).DisplayStats();
         }
-        public Fighter GetMonster(int number)
+        public Monster GetMonster(int number)
         {
             if (number== 1)
             {
-                return fighters[dayNumber * 4 - 2];
+                return monsters[dayNumber * 2 - 2];
             } else {
-                return fighters[dayNumber * 4 - 1];
+                return monsters[dayNumber * 2 - 1];
             }
         }
         public void ResolveTurn()
         {
 
-            Console.ReadKey();
+            Console.ReadLine();
             Console.Clear();
             if (GetMonster(1).health < 1)
             {
@@ -296,16 +288,16 @@ namespace DiceGameProject
             {
                 GetMonster(2).DisplayStats();
             }
-            Console.ReadKey();
+            Console.ReadLine();
             Console.Clear();
             if (player1.health < 1 || player2.health < 1)
             {
                 Console.WriteLine("One or more player has died.  Game Over.");
                 Console.WriteLine("");
                 alive = false;
-                Console.ReadKey();
+                Console.ReadLine();
                 Console.Clear();
-            } else if (fighters[dayNumber * 4 -1].health < 1 && fighters[dayNumber * 4 - 2].health < 1)
+            } else if (GetMonster(1).health < 1 && GetMonster(2).health < 1)
             {
                 GetMonster(1).GiveLoot(player1);
                 GetMonster(1).GiveLoot(player2);
@@ -315,8 +307,10 @@ namespace DiceGameProject
                 Console.WriteLine("");
                 Console.WriteLine("{0} has {1} gold.", player1.name, player1.goldAmount);
                 Console.WriteLine("{0} has {1} gold.", player2.name, player2.goldAmount);
+                player1.UpdateScore();
+                player2.UpdateScore();
 
-                Console.ReadKey();
+                Console.ReadLine();
                 Console.Clear();
             } else
             {
@@ -331,9 +325,63 @@ namespace DiceGameProject
         {
             Console.Clear();
             Console.WriteLine("Congratulations you cleared day number {0}.  Now you get to go to the village to shop, train, or rest, if you have the coin.", dayNumber);
-            Console.ReadKey();
+            Console.ReadLine();
             Console.Clear();
         }
+        public void AskToContinue()
+        {
+            Console.WriteLine("Continue? Type yes to continue or no to quit.");
+            string choice = Console.ReadLine();
+            if (choice == "yes")
+            {
 
+                alive = true;
+            }
+            else if (choice == "no")
+            {
+                alive = false;
+            }
+            else
+            {
+                Console.WriteLine("Type yes or no.");
+                AskToContinue();             
+            }
+        }
+        public void PromptToRecordScore()
+        {
+            Console.WriteLine("Do you wish to record your score in the score log?  Enter 'yes' or 'no'");
+            string answer = Console.ReadLine();
+            if (answer == "yes")
+            {
+                ExecuteScoring();
+            } else
+            {
+                Console.WriteLine("Thanks for playing.");
+            }
+        }
+        public void GetScore()
+        {
+            int totalGold = player1.maxGold + player2.maxGold;
+            score = totalGold.ToString();
+        }
+        public void ExecuteScoring()
+        {
+            GetScore();
+            highScore.WriteScore(player1.name, player2.name, score);
+            ListHighScores();
+        }
+
+        public void ListHighScores()
+        {
+            Console.WriteLine("HIGH SCORES");
+            Console.WriteLine("");
+            string[] scores = highScore.sortScores(highScore.fileReader("highScores.txt"));
+            foreach (string s in scores)
+            {
+                Console.WriteLine(s);
+                Console.WriteLine("");
+            }
+            Console.ReadLine();
+        }
     }
 }

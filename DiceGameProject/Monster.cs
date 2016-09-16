@@ -8,7 +8,8 @@ namespace DiceGameProject
 {
     public class Monster : Fighter
     {
-
+        public int firstOrSecond;
+        public string description;
         D20 d20 = new D20();
         
         public Monster()
@@ -16,7 +17,7 @@ namespace DiceGameProject
             firstOrSecond = 2;
         }
 
-        public override void SetName()
+        public void SetName()
         {
             name = (name + " " + firstOrSecond);
         }

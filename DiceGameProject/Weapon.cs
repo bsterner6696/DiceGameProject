@@ -55,38 +55,38 @@ namespace DiceGameProject
         {
             hasGun = true;
             Console.WriteLine("Acquired Gun");
-            Console.ReadKey();
+            Console.ReadLine();
         }
         public void EquipGiantSlayer()
         {
             hasGiantSlayer = true;
             Console.WriteLine("Acquired Giant Slayer");
-            Console.ReadKey();
+            Console.ReadLine();
         }
         public void EquipGreatSword()
         {
             hasGreatSword = true;
             Console.WriteLine("Acquired GreatSword");
-            Console.ReadKey();
+            Console.ReadLine();
         }
         public void EquipBattleAxe()
         {
             hasBattleAxe = true;
             Console.WriteLine("Acquired BattleAxe");
-            Console.ReadKey();
+            Console.ReadLine();
 
         }
         public void EquipSword()
         {
             hasSword = true;
             Console.WriteLine("Acquired Sword");
-            Console.ReadKey();
+            Console.ReadLine();
         }
         public void EquipDagger()
         {
             hasDagger = true;
             Console.WriteLine("Acquired Dagger");
-            Console.ReadKey();
+            Console.ReadLine();
         }
     }
 }

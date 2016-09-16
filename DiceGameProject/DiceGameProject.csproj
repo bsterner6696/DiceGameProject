@@ -59,6 +59,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="Goblin.cs" />
     <Compile Include="Gremlin.cs" />
+    <Compile Include="HighScore.cs" />
     <Compile Include="HumanPlayer.cs" />
     <Compile Include="Monster.cs" />
     <Compile Include="Ogre.cs" />

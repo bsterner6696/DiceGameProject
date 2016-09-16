@@ -11,12 +11,12 @@ namespace DiceGameProject
         public override void PickTarget()
         {
             Console.WriteLine("{0}, Do you want to attack the first or second monster?  Enter '1' or '2'", name);
-            ConsoleKeyInfo tChoice = Console.ReadKey();
-            if (tChoice.KeyChar == '1')
+            string tChoice = Console.ReadLine();
+            if (tChoice == "1")
             {
                 target = 2;
                 Console.WriteLine("");
-            } else if (tChoice.KeyChar == '2')
+            } else if (tChoice == "2")
             {
                 target = 1;
                 Console.WriteLine("");
