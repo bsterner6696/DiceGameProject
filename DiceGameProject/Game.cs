@@ -351,16 +351,19 @@ namespace DiceGameProject
 
         public void AskToContinue()
         {
-            Console.WriteLine("Continue? Type yes to continue or no to quit.");
-            string continueChoice = Console.ReadLine();
-            if (continueChoice == "yes")
+            if (alive)
             {
+                Console.WriteLine("Continue? Type yes to continue or no to quit.");
+                string continueChoice = Console.ReadLine();
+                if (continueChoice == "yes")
+                {
 
-                alive = true;
-            }
-            else if (continueChoice == "no")
-            {
-                alive = false;
+                    alive = true;
+                }
+                else if (continueChoice == "no")
+                {
+                    alive = false;
+                }
             }
 
         }
